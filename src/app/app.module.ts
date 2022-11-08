@@ -12,13 +12,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {AngularMaterialModule} from "./angular.material.module";
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { ClientPageComponent } from './pages/client-page/client-page.component';
+import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    AdminPageComponent,
+    ClientPageComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

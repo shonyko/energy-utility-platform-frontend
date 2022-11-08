@@ -21,11 +21,14 @@ export class LoginPageComponent {
   constructor(private authService: AuthService) {
   }
 
-  submitForm() {
+  async submitForm() {
     if (this.form.invalid) {
       return;
     }
 
-    this.authService.login(this.form.get('username')?.value, this.form.get('password')?.value).subscribe(res => console.log(res));
+    this.authService.login({
+      username: this.form.get('username')?.value,
+      password: this.form.get('password')?.value
+    }).subscribe();
   }
 }

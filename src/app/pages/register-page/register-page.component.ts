@@ -17,6 +17,7 @@ export class RegisterPageComponent {
   Roles: any = [UserRole.Client, UserRole.Admin];
 
   form: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     role: new FormControl(UserRole.Client)
@@ -25,14 +26,19 @@ export class RegisterPageComponent {
   constructor(private authService: AuthService) {
   }
 
-  submitForm() {
-    if(this.form.invalid) {
+  async submitForm() {
+    if (this.form.invalid) {
       return;
     }
-    // if (this.form.valid) {
-    //   this.submit.emit(this.form.value);
-    // }
-    this.authService.register(this.form.get('username')?.value, this.form.get('password')?.value, this.form.get('role')?.value).subscribe(res => console.log(res));
+
+    this.authService.register({
+      name: this.form.get('name')?.value,
+      credentials: {
+        username: this.form.get('username')?.value,
+        password: this.form.get('password')?.value,
+      },
+      role: this.form.get('role')?.value
+    }).subscribe();
   }
 
 }
