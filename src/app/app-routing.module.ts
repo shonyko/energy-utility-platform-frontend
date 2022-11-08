@@ -12,7 +12,7 @@ import {IsNotAuthenticatedGuard} from "./guards/is-not-authenticated.guard";
 
 const routes: Routes = [
   {
-    path: '', redirectTo: "/login"
+    path: '', redirectTo: "/login", pathMatch: 'full'
   },
   {
     path: 'login', component: LoginPageComponent,

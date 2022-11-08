@@ -15,6 +15,9 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { ClientPageComponent } from './pages/client-page/client-page.component';
 import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { DeviceFormDialogComponent } from './components/device-form-dialog/device-form-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
     LoginPageComponent,
     RegisterPageComponent,
     AdminPageComponent,
-    ClientPageComponent
+    ClientPageComponent,
+    DataTableComponent,
+    DeviceFormDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +42,7 @@ import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
     HttpClientModule
   ],
   providers: [AuthInterceptorProvider],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class AppModule { }

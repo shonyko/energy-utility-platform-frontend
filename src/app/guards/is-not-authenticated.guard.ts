@@ -14,15 +14,16 @@ export class IsNotAuthenticatedGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.isLoggedIn$.pipe(tap(isLoggedIn => {
-        if (isLoggedIn) {
-          const role = this.authService.getRoles()[0];
-          this.router.navigate([role.toLowerCase()]);
-        }
+    console.log('daaaa')
+    const isLoggedIn = this.authService.isLoggedIn;
+    if (isLoggedIn) {
+      const role = this.authService.getRoles()[0];
+      this.router.navigate([role.toLowerCase()]);
+      console.log('poate')
+      return false;
+    }
 
-        return !isLoggedIn;
-      })
-    );
+    return !isLoggedIn;
   }
 
 }

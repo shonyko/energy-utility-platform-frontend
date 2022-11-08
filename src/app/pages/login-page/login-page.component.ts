@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +19,7 @@ export class LoginPageComponent {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   async submitForm() {
@@ -29,6 +30,9 @@ export class LoginPageComponent {
     this.authService.login({
       username: this.form.get('username')?.value,
       password: this.form.get('password')?.value
-    }).subscribe();
+    }).subscribe(_ => {
+      const role = this.authService.getRoles()[0];
+      this.router.navigate([role.toLowerCase()]);
+    });
   }
 }

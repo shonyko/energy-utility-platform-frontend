@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserRole} from "../../enums/user-role";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register-page',
@@ -23,7 +24,7 @@ export class RegisterPageComponent {
     role: new FormControl(UserRole.Client)
   });
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   async submitForm() {
@@ -38,7 +39,10 @@ export class RegisterPageComponent {
         password: this.form.get('password')?.value,
       },
       role: this.form.get('role')?.value
-    }).subscribe();
+    }).subscribe(_ => {
+      const role = this.authService.getRoles()[0];
+      this.router.navigate([role.toLowerCase()]);
+    });
   }
 
 }

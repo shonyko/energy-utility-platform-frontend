@@ -12,6 +12,16 @@ import {JwtPayload} from "../models/jwt-payload";
 export class AuthService {
 
   private readonly TOKEN_NAME: string = 'token';
+  private payload!: JwtPayload;
+
+  constructor(private apiService: ApiService) {
+    const token = localStorage.getItem(this.TOKEN_NAME) ?? "";
+    this._isLoggedIn = !!token;
+    this._isLoggedIn$.next(this._isLoggedIn);
+    if (!this._isLoggedIn) return;
+    this.payload = this.getPayload(token);
+    console.log(this.payload)
+  }
 
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
@@ -19,29 +29,32 @@ export class AuthService {
     return this._isLoggedIn$.asObservable();
   }
 
-  private payload: JwtPayload;
+  private _isLoggedIn: boolean;
+
+  get isLoggedIn() {
+    return this._isLoggedIn;
+  }
 
   get token() {
     return localStorage.getItem(this.TOKEN_NAME) ?? '';
   }
 
-  constructor(private apiService: ApiService) {
-    const token = localStorage.getItem(this.TOKEN_NAME) ?? "";
-    this._isLoggedIn$.next(!!token);
-    this.payload = this.getPayload(token);
-    console.log(this.payload)
-  }
-
   login(credentials: Credentials) {
     return this.apiService.login(credentials).pipe(tap(token => {
       this._isLoggedIn$.next(true);
+      this._isLoggedIn = true;
       localStorage.setItem('token', token);
       this.payload = this.getPayload(token);
     }));
   }
 
   register(registerDto: RegisterDto) {
-    return this.apiService.register(registerDto);
+    return this.apiService.register(registerDto).pipe(tap(token => {
+      this._isLoggedIn$.next(true);
+      this._isLoggedIn = true;
+      localStorage.setItem('token', token);
+      this.payload = this.getPayload(token);
+    }));;
   }
 
   getPayload(token: string): JwtPayload {

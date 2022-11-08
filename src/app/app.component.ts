@@ -12,6 +12,6 @@ export class AppComponent {
 
   constructor(private authService: AuthService) {
     console.log(environment)
-    console.log(authService.getPayload(this.authService.token));
+    // console.log(authService.getPayload(this.authService.token));
   }
 }
