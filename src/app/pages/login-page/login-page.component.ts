@@ -30,9 +30,14 @@ export class LoginPageComponent {
     this.authService.login({
       username: this.form.get('username')?.value,
       password: this.form.get('password')?.value
-    }).subscribe(_ => {
-      const role = this.authService.getRoles()[0];
-      this.router.navigate([role.toLowerCase()]);
-    });
+    }).subscribe({
+      next: _ => {
+        const role = this.authService.getRoles()[0];
+        this.router.navigate([role.toLowerCase()]);
+      },
+      error: _ => {
+        this.error = "Wrong username or password!";
+      }
+    })
   }
 }

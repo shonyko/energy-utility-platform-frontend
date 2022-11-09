@@ -1,23 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {NotFoundPageComponent} from './pages/not-found-page/not-found-page.component';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AngularMaterialModule} from "./angular.material.module";
-import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { ClientPageComponent } from './pages/client-page/client-page.component';
+import {RegisterPageComponent} from './pages/register-page/register-page.component';
+import {AdminPageComponent} from './pages/admin-page/admin-page.component';
+import {ClientPageComponent} from './pages/client-page/client-page.component';
 import {AuthInterceptorProvider} from "./interceptors/auth.interceptor";
-import { DataTableComponent } from './components/data-table/data-table.component';
-import { DeviceFormDialogComponent } from './components/device-form-dialog/device-form-dialog.component';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import {DeviceDataTableComponent} from './components/device-data-table/device-data-table.component';
+import {DeviceFormDialogComponent} from './components/device-form-dialog/device-form-dialog.component';
+import {ConfirmationDialogComponent} from './components/confirmation-dialog/confirmation-dialog.component';
+import {AddressDataTableComponent} from "./components/address-data-table/address-data-table.component";
+import {AddressFormDialogComponent} from "./components/address-form-dialog/address-form-dialog.component";
+import {UserDataTableComponent} from "./components/user-data-table/user-data-table.component";
+import {UserFormDialogComponent} from "./components/user-form-dialog/user-form-dialog.component";
+import {ClientDataTableComponent} from "./components/client-data-table/client-data-table.component";
+import {ClientFormDialogComponent} from "./components/client-form-dialog/client-form-dialog.component";
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -27,9 +34,15 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     RegisterPageComponent,
     AdminPageComponent,
     ClientPageComponent,
-    DataTableComponent,
+    AddressDataTableComponent,
+    DeviceDataTableComponent,
+    UserDataTableComponent,
+    ClientDataTableComponent,
+    AddressFormDialogComponent,
     DeviceFormDialogComponent,
-    ConfirmationDialogComponent
+    UserFormDialogComponent,
+    ConfirmationDialogComponent,
+    ClientFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +52,12 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

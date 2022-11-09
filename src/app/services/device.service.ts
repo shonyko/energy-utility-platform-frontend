@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {Injectable} from '@angular/core';
 import {Device} from "../models/device/device";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
@@ -18,24 +17,15 @@ export class DeviceService {
     return this.http.get(this.BASE_URL);
   }
 
-  add(Device: Device) {
-    // this.devices.push(Device);
+  add(device: Device) {
+    return this.http.post(this.BASE_URL, device);
   }
 
-  edit(Device: Device) {
-    // let findElem = this.devices.find(p => p.id == Device.id);
-    // findElem.firstName = Device.firstName;
-    // findElem.age = Device.age;
-    // findElem.job = Device.job;
-    // this.devices$.next(this.devices);
+  update(device: Device) {
+    return this.http.put(`${this.BASE_URL}/${device.id}`, device);
   }
 
-  remove(id: number) {
-
-    // this.devices = this.devices.filter(p => {
-    //   return p.id != id
-    // });
-    //
-    // this.devices$.next(this.devices);
+  remove(id: string) {
+    return this.http.delete(`${this.BASE_URL}/${id}`);
   }
 }

@@ -1,9 +1,43 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {environment} from "../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {User} from "../models/user/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  public readonly BASE_URL = `${environment.API_URL}/api/users`
+
+  constructor(private http: HttpClient) {
+  }
+
+  getAll() {
+    return this.http.get(this.BASE_URL);
+  }
+
+  add(user: User) {
+    return this.http.post(this.BASE_URL, user);
+  }
+
+  update(user: User) {
+    return this.http.put(`${this.BASE_URL}/${user.id}`, user);
+  }
+
+  remove(id: string) {
+    return this.http.delete(`${this.BASE_URL}/${id}`);
+  }
+
+  getDevices(userId: string) {
+    return this.http.get(`${this.BASE_URL}/${userId}/devices`)
+  }
+
+  addDevice(userId: string, deviceId: string) {
+    return this.http.post(`${this.BASE_URL}/${userId}/devices/${deviceId}`, null);
+  }
+
+  removeDevice(userId: string, deviceId: string) {
+    return this.http.delete(`${this.BASE_URL}/${userId}/devices/${deviceId}`);
+  }
 }

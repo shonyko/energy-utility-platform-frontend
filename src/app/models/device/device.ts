@@ -1,5 +1,5 @@
 import {Address} from "../address";
-import {User} from "../user";
+import {User} from "../user/user";
 
 export interface Device {
   id: string,

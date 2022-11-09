@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Edit Device</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="formInstance">
+    <div>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Id</mat-label>
+        <input matInput type="text"
+               name="id" formControlName="id">
+        <mat-error *ngIf="
+        checkValid('id')">field required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-5">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" name="description" formControlName="description"/>
+        <mat-error *ngIf="
+        checkValid('description')">field required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-5">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Max Hourly Consumption</mat-label>
+        <input matInput type="number" name="maxHourlyConsumption" formControlName="maxHourlyConsumption"/>
+        <mat-error *ngIf="
+        checkValid('maxHourlyConsumption')">field required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-5" *ngIf="!loading">
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Address</mat-label>
+        <mat-select [(value)]="selectedAddr" name="address" formControlName="address">
+          <mat-option *ngFor="let addr of addressList" [value]="addr.id">{{addr.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkValid('address')">field required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div class="mt-5" mat-dialog-actions>
+  <button mat-raised-button color="primary"
+          [disabled]="formInstance.dirty && !!formInstance.errors" (click)="save()"
+          cdkFocusInitial>Yes
+  </button>
+  <button mat-raised-button mat-dialog-close>No</button>
+
+</div>

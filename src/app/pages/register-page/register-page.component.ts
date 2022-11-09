@@ -39,9 +39,14 @@ export class RegisterPageComponent {
         password: this.form.get('password')?.value,
       },
       role: this.form.get('role')?.value
-    }).subscribe(_ => {
-      const role = this.authService.getRoles()[0];
-      this.router.navigate([role.toLowerCase()]);
+    }).subscribe({
+      next: _ => {
+        const role = this.authService.getRoles()[0];
+        this.router.navigate([role.toLowerCase()]);
+      },
+      error: _ => {
+        this.error = "Username is already taken";
+      }
     });
   }
 
