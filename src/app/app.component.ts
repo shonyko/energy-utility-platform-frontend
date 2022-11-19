@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {environment} from "../environments/environment";
-import {AuthService} from "./services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,7 @@ import {AuthService} from "./services/auth.service";
 export class AppComponent {
   title = 'energy-utility-platform-frontend';
 
-  constructor(private authService: AuthService) {
+  constructor() {
     console.log(environment)
-    // console.log(authService.getPayload(this.authService.token));
   }
 }
