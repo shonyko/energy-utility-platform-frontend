@@ -24,7 +24,8 @@ import {UserDataTableComponent} from "./components/user-data-table/user-data-tab
 import {UserFormDialogComponent} from "./components/user-form-dialog/user-form-dialog.component";
 import {ClientDataTableComponent} from "./components/client-data-table/client-data-table.component";
 import {ClientFormDialogComponent} from "./components/client-form-dialog/client-form-dialog.component";
-import { NgChartsModule } from 'ng2-charts';
+import {NgChartsModule} from 'ng2-charts';
+import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    NgChartsModule
+    NgChartsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent],
