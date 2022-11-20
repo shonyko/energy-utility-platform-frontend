@@ -1,27 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Device} from "../../models/device/device";
-import {UserService} from "../../services/user.service";
-import {User} from "../../models/user/user";
 import {DeviceService} from "../../services/device.service";
 import {ChartConfiguration, ChartOptions} from 'chart.js';
+import {Measurement} from "../../models/measurement";
+import {BaseChartDirective} from "ng2-charts";
+import {WebsocketService} from "../../services/websocket.service";
 
 @Component({
   selector: 'app-client-form-dialog',
   templateUrl: './client-form-dialog.component.html',
   styleUrls: ['./client-form-dialog.component.scss']
 })
-export class ClientFormDialogComponent implements OnInit {
+export class ClientFormDialogComponent implements OnInit, OnDestroy {
 
-  deviceList!: Device[];
-  selected!: Device[];
-  initial!: Device[];
+  @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-  model!: User;
+  measurements: Measurement[] = [];
 
-  roles = ["ADMIN", "CLIENT"]
+  model!: Device;
 
-  loading = true;
+  isLoading = true;
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [
@@ -35,7 +34,7 @@ export class ClientFormDialogComponent implements OnInit {
     datasets: [
       {
         data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Series A',
+        label: 'Energy Consumption',
         fill: true,
         tension: 0.5,
         borderColor: 'black',
@@ -50,17 +49,54 @@ export class ClientFormDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ClientFormDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private deviceService: DeviceService, private userService: UserService) {
+              private deviceService: DeviceService, private websocketService: WebsocketService) {
+    this.model = this.data.model;
   }
 
   ngOnInit(): void {
-    this.deviceService.getAll().subscribe(data => {
-      // this.deviceList = data as Device[];
-      // console.log(this.deviceList)
-      // this.selected = this.deviceList.filter(dev => this.checkSelected(dev));
-      // this.initial = this.selected;
-      // this.formInstance.get("devices")?.setValue(this.selected.map(x => x.id));
-      // this.loading = false;
+    this.deviceService.getMeasurements(this.model).subscribe(data => {
+      this.measurements = data as Measurement[];
+      const [labels, readings] = this.measurements.reduce((result: any, measurement) => {
+        const hour = new Date(measurement.timeStamp).getHours();
+        const label = `${hour.toString().padStart(2, '0')}:00`;
+        if (result[0].at(-1) != label) {
+          result[0].push(label);
+        }
+
+        result[1].push(measurement.energyConsumption.toFixed(1))
+
+        return result;
+      }, [[], []]);
+
+      this.lineChartData.labels = labels;
+      this.lineChartData.datasets[0].data = readings;
+
+      console.log(readings)
+
+      this.isLoading = false;
     });
+
+    this.websocketService.subscribe(`device/${this.model.id}`, (data: string) => {
+      const obj = JSON.parse(data);
+      const measurement: Measurement = {
+        id: "",
+        timeStamp: new Date(obj.timestamp),
+        energyConsumption: obj["measurement_value"]
+      };
+
+      const hour = new Date(measurement.timeStamp).getHours();
+      const label = `${hour.toString().padStart(2, '0')}:00`;
+      if (this.lineChartData.labels?.at(-1) != label) {
+        this.lineChartData.labels?.push(label);
+      }
+
+      this.lineChartData.datasets[0].data.push(measurement.energyConsumption);
+
+      this.chart.update();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.websocketService.unsubscribe(`device/${this.model.id}`);
   }
 }

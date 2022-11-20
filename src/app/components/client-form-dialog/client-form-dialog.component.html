@@ -2,12 +2,20 @@
 
 <div mat-dialog-content>
   <div style="display: block;">
-    <canvas baseChart width="400" height="400"
-            [type]="'line'"
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend">
-    </canvas>
+    <ng-container *ngIf="isLoading; then loading else chart"></ng-container>
+    <ng-template #loading>
+      <div class="loading">
+        Loading...
+      </div>
+    </ng-template>
+    <ng-template #chart>
+      <canvas baseChart width="400" height="400"
+              [type]="'line'"
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend">
+      </canvas>
+    </ng-template>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {WebsocketService} from "../../services/websocket.service";
 import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
@@ -8,13 +8,13 @@ import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
   templateUrl: './client-page.component.html',
   styleUrls: ['./client-page.component.scss']
 })
-export class ClientPageComponent implements OnInit {
+export class ClientPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('notificationDialog')
   readonly notificationDialog!: SwalComponent;
 
   readonly title: string = "Limit exceeded!";
-  warningText   : string = "warning text";
+  warningText: string = "warning text";
 
   constructor(private authService: AuthService, private websocketService: WebsocketService) {
   }
@@ -22,8 +22,12 @@ export class ClientPageComponent implements OnInit {
   ngOnInit(): void {
     this.websocketService.subscribe(this.authService.getId(), (res: string) => {
       this.warningText = res;
-      this.notificationDialog.fire();
+      setTimeout(() => this.notificationDialog.fire(), 0);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.websocketService.unsubscribe(this.authService.getId());
   }
 
 }

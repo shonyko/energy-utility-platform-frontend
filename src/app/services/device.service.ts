@@ -28,4 +28,8 @@ export class DeviceService {
   remove(id: string) {
     return this.http.delete(`${this.BASE_URL}/${id}`);
   }
+
+  getMeasurements(device: Device) {
+    return this.http.get(`${this.BASE_URL}/${device.id}/measurements`);
+  }
 }
