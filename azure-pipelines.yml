@@ -23,35 +23,6 @@ stages:
 - stage: Build
   displayName: Build stage
   jobs:
-  - job: CodeCoverage
-    displayName: Code Coverage
-    pool:
-      name: local
-    steps:
-      - task: Maven@3
-        inputs:
-          mavenPomFile: 'pom.xml'
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
-          codeCoverageToolOption: 'JaCoCo'
-          codeCoverageFailIfEmpty: true
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-          checkStyleRunAnalysis: true
-
-      - task: Maven@3
-        displayName: "Maven Test"
-        inputs:
-          mavenPomFile: "pom.xml"
-          goals: "test"
-      - task: PublishTestResults@2
-        displayName: "Publish test results"
-        inputs:
-          testResultsFormat: "JUnit"
-          mergeTestResults: true # Optional
   - job: Build
     displayName: Build
     pool:
