@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <form [formGroup]="form" (ngSubmit)="submitForm($event)" (keydown.enter)="onKeyUp($event)">
       <p>
         <mat-form-field>
           <input type="text" matInput placeholder="Username" formControlName="username">
@@ -19,7 +19,7 @@
       </p>
 
       <div class="button">
-        <button mat-stroked-button color="primary" routerLink="/register">Register</button>
+        <button type="button" mat-stroked-button color="primary" routerLink="/register">Register</button>
         <button type="submit" mat-stroked-button color="accent">Login</button>
       </div>
 

@@ -27,8 +27,18 @@ export class RegisterPageComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  async submitForm() {
+  onKeyUp(e: Event) {
+    this.submitForm(e);
+  }
+
+  async submitForm(e: any) {
+    e.preventDefault();
     if (this.form.invalid) {
+      Object.keys(this.form.controls).forEach(field => {
+        const control = this.form.get(field);
+        if(control == null) return;
+        control.markAsTouched({ onlySelf: true });
+      });
       return;
     }
 
