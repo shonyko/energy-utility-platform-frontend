@@ -16,6 +16,8 @@ export class ClientPageComponent implements OnInit, OnDestroy {
   readonly title: string = "Limit exceeded!";
   warningText: string = "warning text";
 
+  activeTab: string = "";
+
   constructor(private authService: AuthService, private websocketService: WebsocketService) {
   }
 
@@ -30,4 +32,7 @@ export class ClientPageComponent implements OnInit, OnDestroy {
     this.websocketService.unsubscribe(this.authService.getId());
   }
 
+  onTabChange(tabName: string) {
+    this.activeTab = tabName;
+  }
 }

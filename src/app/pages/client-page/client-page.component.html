@@ -1,7 +1,12 @@
-<app-sidebar></app-sidebar>
-<div class="content">
-  <app-refresh-button></app-refresh-button>
-  <app-client-data-table></app-client-data-table>
+<app-sidebar (tabChangeEvent)="onTabChange($event)"></app-sidebar>
+<div class="content" [class.chat]="activeTab == 'chat'">
+  <div class="page">
+    <app-refresh-button></app-refresh-button>
+    <app-client-data-table></app-client-data-table>
+  </div>
+  <div class="page">
+
+  </div>
   <swal
     #notificationDialog
     title="{{title}}"

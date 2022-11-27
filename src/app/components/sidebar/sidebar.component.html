@@ -1,3 +1,8 @@
 <ul class="nav">
+  <li *ngFor="let tab of tabs" class="btn nav-link mat-icon material-icons" [class.active]="tab == activeTab"
+    (click)="selectTab(tab)"
+  >
+    {{tab.icon}}
+  </li>
   <li class="btn nav-link" (click)="logout()"><mat-icon>exit_to_app</mat-icon></li>
 </ul>

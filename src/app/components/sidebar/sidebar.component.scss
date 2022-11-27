@@ -28,7 +28,7 @@
   justify-content: center;
   align-items: center;
 
-  padding-block: 1em;
+  padding: 1em;
 
   cursor: pointer;
   outline: none;
@@ -38,4 +38,9 @@
 .nav-link:last-of-type {
   --clr: red;
   margin-top: auto;
+}
+
+.nav-link.active {
+  color: white;
+  background: var(--clr, purple);
 }
