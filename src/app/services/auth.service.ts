@@ -20,7 +20,6 @@ export class AuthService {
     this._isLoggedIn$.next(this._isLoggedIn);
     if (!this._isLoggedIn) return;
     this.payload = this.getPayload(token);
-    console.log(this.payload)
   }
 
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
@@ -54,7 +53,13 @@ export class AuthService {
       this._isLoggedIn = true;
       localStorage.setItem('token', token);
       this.payload = this.getPayload(token);
-    }));;
+    }));
+  }
+
+  logout() {
+    this._isLoggedIn$.next(false);
+    this._isLoggedIn = false;
+    localStorage.removeItem('token');
   }
 
   getPayload(token: string): JwtPayload {

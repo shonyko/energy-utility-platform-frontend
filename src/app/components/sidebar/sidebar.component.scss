@@ -1,0 +1,41 @@
+:host {
+  position: absolute;
+
+  display: flex;
+
+  width: 5rem;
+  height: 100vh;
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  box-shadow: 0 0 1px 0 gray;
+
+  background: hsl(0 0% 95% / .5);
+}
+
+.nav-link {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-block: 1em;
+
+  cursor: pointer;
+  outline: none;
+  border-radius: 0;
+}
+
+.nav-link:last-of-type {
+  --clr: red;
+  margin-top: auto;
+}

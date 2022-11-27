@@ -27,6 +27,7 @@ import {ClientFormDialogComponent} from "./components/client-form-dialog/client-
 import {NgChartsModule} from 'ng2-charts';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 import { RefreshButtonComponent } from './components/refresh-button/refresh-button.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { RefreshButtonComponent } from './components/refresh-button/refresh-butt
     UserFormDialogComponent,
     ConfirmationDialogComponent,
     ClientFormDialogComponent,
-    RefreshButtonComponent
+    RefreshButtonComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
