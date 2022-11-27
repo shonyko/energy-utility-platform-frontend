@@ -1,5 +1,25 @@
+div {
+  width: 90%;
+  margin: auto;
+
+  position: relative;
+}
+
 table {
   width: 100%;
+}
+
+.create-btn {
+  --clr: darkseagreen;
+
+  position: absolute;
+  right: 1.5rem;
+  top: .7rem;
+
+  font-size: 1.3rem;
+  padding: .2em;
+
+  border-radius: 100%;
 }
 
 th.mat-sort-header-sorted {

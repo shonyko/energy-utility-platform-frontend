@@ -4,7 +4,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Device} from "../../models/device/device";
 import {Address} from "../../models/address";
 import {AddressService} from "../../services/address.service";
-import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-device-form-dialog',
@@ -24,16 +23,15 @@ export class DeviceFormDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DeviceFormDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private addressService: AddressService, private userService: UserService) {
+              private addressService: AddressService) {
     this.formInstance = new FormGroup({
       id: new FormControl({
-        value: '',
-        disabled: data?.model ?? false
+        value: ' ',
+        disabled: true
       }, Validators.required),
       description: new FormControl('', Validators.required),
       maxHourlyConsumption: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
-      // user: new FormControl('', Validators.required),
     });
 
     this.model = data?.model;

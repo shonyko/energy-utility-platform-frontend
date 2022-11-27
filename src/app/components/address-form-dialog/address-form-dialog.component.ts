@@ -16,8 +16,8 @@ export class AddressFormDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.formInstance = new FormGroup({
       id: new FormControl({
-        value: '',
-        disabled: data?.model ?? false
+        value: ' ',
+        disabled: true
       }, Validators.required),
       name: new FormControl('', Validators.required),
     });
