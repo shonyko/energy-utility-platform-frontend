@@ -26,8 +26,9 @@ import {ClientDataTableComponent} from "./components/client-data-table/client-da
 import {ClientFormDialogComponent} from "./components/client-form-dialog/client-form-dialog.component";
 import {NgChartsModule} from 'ng2-charts';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
-import { RefreshButtonComponent } from './components/refresh-button/refresh-button.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {RefreshButtonComponent} from './components/refresh-button/refresh-button.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+import {ChatComponent} from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ConfirmationDialogComponent,
     ClientFormDialogComponent,
     RefreshButtonComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
