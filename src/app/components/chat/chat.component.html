@@ -1,3 +1,109 @@
-<h1>Chat</h1>
-<input type="text">
-<button class="btn">send</button>
+<div class="history-item-container">
+  <div class="wrapper">
+    <ng-container
+      *ngIf="isLoading; then loading; else container_content"
+    ></ng-container>
+  </div>
+</div>
+<div [class.active]="hasSelectedUser" class="history-item-view-container">
+  <div class="wrapper">
+    <ng-container
+      *ngTemplateOutlet="
+        hasSelectedUser ? view_content : no_content;
+        context: {
+          $implicit: {
+            src: MAGNIFYING_GLASS_URL,
+            msg: 'Select something to start!',
+            class: 'magnifying-glass'
+          }
+        }
+      "
+    ></ng-container>
+  </div>
+</div>
+
+<ng-template #no_content let-data>
+  <div class="fill">
+    <div class="no-content-container">
+      <img [class]="data.class" [src]="data.src" alt="magnifying glass"/>
+      <span>{{ data.msg }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="fill">
+    <div class="no-content-container">
+      <div class="loading">Loading...</div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #container_content>
+  <ng-container
+    *ngTemplateOutlet="
+      hasUsers ? history : no_content;
+      context: {
+        $implicit: { src: SAD_FACE_URL, msg: 'Nothing to show just yet!' }
+      }
+    "
+  ></ng-container>
+</ng-template>
+
+<ng-template #history>
+  <div class="bucket">
+    <h1 class="bucket-title">{{title}}</h1>
+    <ul class="item-list">
+      <li
+        (click)="selectUser(user)"
+        *ngFor="let user of users"
+        [class.active]="user == selectedUser"
+        class="card finalized"
+      >
+        <div class="color-bar"></div>
+        <div class="card-content">
+          <div class="left">
+            <div class="wrapper">
+              <span class="location">
+<!--                <i class="bi bi-geo-fill"></i>-->
+                {{ user.name }}
+              </span>
+              <span class="payment">
+<!--                <i class="bi bi-credit-card"></i>-->
+                {{ user.id }}
+              </span>
+              <span class="date">
+<!--                <i class="bi bi-calendar"></i>-->
+              Role: {{ user.role }}
+              </span>
+            </div>
+          </div>
+          <div class="right" [class.color]="usersMap.get(user.id)?.isTyping">Typing...</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #view_content>
+    <header>
+      <div class="back-btn" (click)="selectUser(null)"></div>
+      <div class="details-title">{{selectedUser?.name}}</div>
+    </header>
+  <div class="content">
+    <ul class="message-list">
+      <li class="message" [class.mine]="message.mine" *ngFor="let message of getMessages()">{{message.content}}</li>
+    </ul>
+  </div>
+  <div class="user-input">
+    <input class="input" type="text" (keyup)="handleKeyUp($event)" (keydown.enter)="sendMessage()" [value]="message">
+    <mat-icon class="btn" (click)="sendMessage()">send</mat-icon>
+  </div>
+</ng-template>
+
+<swal
+  #notificationDialog
+  title="{{dialogTitle}}"
+  text="{{dialogText}}"
+  icon="info"
+></swal>

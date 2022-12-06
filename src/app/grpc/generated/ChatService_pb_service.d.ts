@@ -27,7 +27,7 @@ type ChatServicesendMessage = {
   readonly service: typeof ChatService;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof ChatService_pb.Message;
+  readonly requestType: typeof ChatService_pb.ChatMessage;
   readonly responseType: typeof ChatService_pb.nothing;
 };
 
@@ -101,12 +101,12 @@ export class ChatServiceClient {
     callback: (error: ServiceError|null, responseMessage: ChatService_pb.nothing|null) => void
   ): UnaryResponse;
   sendMessage(
-    requestMessage: ChatService_pb.Message,
+    requestMessage: ChatService_pb.ChatMessage,
     metadata: grpc.Metadata,
     callback: (error: ServiceError|null, responseMessage: ChatService_pb.nothing|null) => void
   ): UnaryResponse;
   sendMessage(
-    requestMessage: ChatService_pb.Message,
+    requestMessage: ChatService_pb.ChatMessage,
     callback: (error: ServiceError|null, responseMessage: ChatService_pb.nothing|null) => void
   ): UnaryResponse;
   sendTypingNotification(

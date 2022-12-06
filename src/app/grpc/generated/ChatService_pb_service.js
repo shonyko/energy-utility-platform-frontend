@@ -33,7 +33,7 @@ ChatService.sendMessage = {
   service: ChatService,
   requestStream: false,
   responseStream: false,
-  requestType: ChatService_pb.Message,
+  requestType: ChatService_pb.ChatMessage,
   responseType: ChatService_pb.nothing
 };
 

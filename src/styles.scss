@@ -31,3 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: white;
   background: var(--clr, purple);
 }
+
+body.swal2-shown.swal2-height-auto {
+  height: 100% !important;
+}
