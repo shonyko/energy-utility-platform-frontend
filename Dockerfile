@@ -3,7 +3,7 @@ COPY ./package.json ./app/package.json
 WORKDIR ./app
 RUN npm i
 COPY . .
-RUN npm run build --omit=dev
+RUN npm run build --prod
 
 FROM nginx:alpine
 EXPOSE 4200/tcp
