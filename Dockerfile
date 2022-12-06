@@ -6,5 +6,5 @@ COPY . .
 RUN npm run build --omit=dev
 
 FROM nginx:alpine
-EXPOSE 8081/tcp
+EXPOSE 4200/tcp
 COPY --from=build /app/dist/energy-utility-platform-frontend /usr/share/nginx/html
