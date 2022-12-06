@@ -28,7 +28,7 @@
     "chart.js": "^3.6.0",
     "google-protobuf": "^3.21.2",
     "grpc": "^1.24.11",
-    "ng2-charts": "^4.0.1",
+    "ng2-charts": "^4.1.0",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.8",
     "ts-protoc-gen": "^0.15.0",
