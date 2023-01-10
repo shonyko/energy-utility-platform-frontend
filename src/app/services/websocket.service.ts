@@ -16,7 +16,8 @@ export class WebsocketService {
   constructor() {
     this.stompClient = new RxStomp();
     this.stompClient.configure({
-      webSocketFactory: () => new WebSocket(`ws://${environment.API_URI}/ws`)
+      // webSocketFactory: () => new WebSocket(`ws://${environment.WS_URL}/ws`)
+      webSocketFactory: () => new WebSocket(`ws://${window.location.host}/backend/ws`)
     });
   }
 

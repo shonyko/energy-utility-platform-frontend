@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  API_URI: 'localhost:8080',
-  API_URL: `http://localhost:8080`,
+  API_URI: '/backend',
+  API_URL: `/backend`,
+  WS_URL: 'http://localhost:8081',
   GRPC_URL: 'http://localhost:9091'
 };
 
