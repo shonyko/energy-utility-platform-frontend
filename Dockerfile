@@ -6,5 +6,5 @@ COPY . .
 RUN npm run build --omit=dev
 
 FROM nginx:latest
-EXPOSE 4200/tcp
+COPY ./frontend.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/energy-utility-platform-frontend /usr/share/nginx/html
